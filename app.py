@@ -11,7 +11,7 @@ uploaded_file = st.file_uploader("Choose a file",type=['csv'],accept_multiple_fi
 
 st.write(uploaded_file)
 
-openai.api_key = st.secrets["OPENAI_API_KEY"]
+#openai.api_key = st.secrets["OPENAI_API_KEY"]
 #user_input = st.text_input("Enter your query here",  value= " ")
 
 with st.form("Input"):
@@ -44,4 +44,4 @@ else:
     if btnResult:
         st.error('Upload your CSV file before start talking!', icon="🚨")
 
-st.markdown("<h1 style='text-align: center; color: grey; font-size:30px'>👨‍💻 - <a href='https://github.com/ashwinair'>ashwinair</a></h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: grey; font-size:20px'>👨‍💻 - <a href='https://github.com/ashwinair'>ashwinair</a></h1>", unsafe_allow_html=True)
