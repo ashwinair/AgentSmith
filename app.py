@@ -11,8 +11,8 @@ uploaded_file = st.file_uploader("Choose a file",type=['csv'],accept_multiple_fi
 
 st.write(uploaded_file)
 
-#openai.api_key = st.secrets["OPENAI_API_KEY"]
-#user_input = st.text_input("Enter your query here",  value= " ")
+openai.api_key = st.secrets["OPENAI_API_KEY"]
+
 
 with st.form("Input"):
     user_input = st.text_area("Enter your query here:", height=5, max_chars=None)
