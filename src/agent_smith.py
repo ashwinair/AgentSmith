@@ -26,15 +26,17 @@ uploaded_file = st.sidebar.file_uploader(
     "upload", type=['pdf'], label_visibility="collapsed")
 st.sidebar.write("Enter your OpenAI API KEY")
 user_openai_api_key = st.sidebar.text_input(
-    'OpenAI API key', type='password', placeholder= "write anything if you don't have one", key='api_key', label_visibility="collapsed")
-st.sidebar.write("(you can write anything if you don't have OPENAI API KEY)")
+    'OpenAI API key', type='password', placeholder= "sk -...............", key='api_key', label_visibility="collapsed")
 
 if not user_openai_api_key:
     layout.show_api_key_missing()
 elif user_openai_api_key == 'resume':
     os.environ['OPENAI_API_KEY'] = st.secrets["OPENAI_API_KEY"]
 else: 
-    os.environ['OPENAI_API_KEY'] = user_openai_api_key
+    try:
+        os.environ['OPENAI_API_KEY'] = user_openai_api_key
+    except: 
+        st.warning('Please provide a Valid API key')
 
     # create instance of OpenAI LLM
     llm = OpenAI(temperature=0.1, verbose=True)
