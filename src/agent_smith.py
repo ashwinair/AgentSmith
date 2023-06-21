@@ -28,13 +28,13 @@ st.sidebar.write("Enter your OpenAI API KEY")
 user_openai_api_key = st.sidebar.text_input(
     'OpenAI API key', type='password', placeholder= "sk -...............", key='api_key', label_visibility="collapsed")
 
+os.environ['OPENAI_API_KEY'] = user_openai_api_key
+
 if not user_openai_api_key:
     layout.show_api_key_missing()
 elif user_openai_api_key == 'resume':
     os.environ['OPENAI_API_KEY'] = st.secrets["OPENAI_API_KEY"]
-else:
-    os.environ['OPENAI_API_KEY'] = user_openai_api_key
-
+    
     # create instance of OpenAI LLM
     llm = OpenAI(temperature=0.1, verbose=True)
 
