@@ -6,17 +6,18 @@ import openai
 st.set_page_config(page_title = 'Talk to your CSV', page_icon = ':male_mage:', layout = 'wide')
 
 st.markdown("<h1 style='text-align: center; color: grey;'>Talk to your CSV</h1>", unsafe_allow_html=True)
+st.sidebar.header('Sidebar')
+uploaded_file = st.sidebar.file_uploader("Choose a file",type=['csv'],accept_multiple_files=False,)
 
-uploaded_file = st.file_uploader("Choose a file",type=['csv'],accept_multiple_files=False,)
+st.sidebar.write(uploaded_file)
+container = st.container()
+container.write("This is inside the container")
+openai.api_key = "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"
+#st.secrets["OPENAI_API_KEY"]
 
-st.write(uploaded_file)
 
-openai.api_key = st.secrets["OPENAI_API_KEY"]
-
-
-with st.form("Input"):
-    user_input = st.text_area("Enter your query here:", height=5, max_chars=None)
-    btnResult = st.form_submit_button('Run')
+user_input = st.text_input("Enter your query here:")
+#btnResult = st.form_submit_button('Run')
 
 
 if uploaded_file is not None:
@@ -26,7 +27,7 @@ if uploaded_file is not None:
     if user_input.__len__() <= 10: #taking 10 just as testing purpose most of the query will contain more than 5 words (ofc)
         st.error('Input your query and start talking!', icon="❔")
 
-    elif btnResult and user_input != ' ':
+    elif user_input:
         prompt = f'find {user_input} from this csv file and give output in csv format with asked columns names, ignore irrelevant data and check the data properly and dont discribe the answer: {bytes_data}'
         response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=[{"role": "user", "content": prompt}])
 
@@ -39,9 +40,8 @@ if uploaded_file is not None:
         print(response)
         # Can be used wherever a "file-like" object is accepted:
         dataframe = pd.read_csv(stringio, sep=",", header=None)
-        st.write(dataframe)
+        container.write(dataframe)
 else:
-    if btnResult:
-        st.error('Upload your CSV file before start talking!', icon="🚨")
+    st.warning('Upload your CSV file before start talking!', icon="🚨")
 
-st.markdown("<h1 style='text-align: center; color: grey; font-size:20px'>👨‍💻 - <a href='https://github.com/ashwinair'>ashwinair</a></h1>", unsafe_allow_html=True)
+st.sidebar.markdown("<h1 style='text-align: center; color: grey; font-size:20px'>👨‍💻 - <a href='https://github.com/ashwinair'>ashwinair</a></h1>", unsafe_allow_html=True)
