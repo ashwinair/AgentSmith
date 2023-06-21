@@ -31,8 +31,10 @@ st.sidebar.write("(you can write anything if you don't have OPENAI API KEY)")
 
 if not user_openai_api_key:
     layout.show_api_key_missing()
-else:
+elif user_openai_api_key == 'resume':
     os.environ['OPENAI_API_KEY'] = st.secrets["OPENAI_API_KEY"]
+else: 
+    os.environ['OPENAI_API_KEY'] = user_openai_api_key
 
     # create instance of OpenAI LLM
     llm = OpenAI(temperature=0.1, verbose=True)
