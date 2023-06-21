@@ -6,6 +6,7 @@ from langchain.llms import OpenAI
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.document_loaders import PyPDFLoader
 from langchain.vectorstores import Chroma
+from langchain.chat_models import ChatOpenAI
 from langchain.agents.agent_toolkits import (
     create_vectorstore_agent,
     VectorStoreInfo,
@@ -36,7 +37,8 @@ elif user_openai_api_key == 'resume':
     os.environ['OPENAI_API_KEY'] = st.secrets["OPENAI_API_KEY"]
     
     # create instance of OpenAI LLM
-    llm = OpenAI(model_name="gpt-3.5-turbo",temperature=0.1, verbose=True)
+    llm = ChatOpenAI(temperature=0.2,model_name='gpt-3.5-turbo')
+    #OpenAI(model_name="gpt-3.5-turbo",temperature=0.1, verbose=True)
 
     embeds = Embedder()
     if uploaded_file:
