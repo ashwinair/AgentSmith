@@ -36,7 +36,7 @@ elif user_openai_api_key == 'resume':
     os.environ['OPENAI_API_KEY'] = st.secrets["OPENAI_API_KEY"]
     
     # create instance of OpenAI LLM
-    llm = OpenAI(temperature=0.1, verbose=True)
+    llm = OpenAI(model_name="gpt-3.5-turbo",temperature=0.1, verbose=True)
 
     embeds = Embedder()
     if uploaded_file:
