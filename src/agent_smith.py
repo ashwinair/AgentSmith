@@ -32,11 +32,8 @@ if not user_openai_api_key:
     layout.show_api_key_missing()
 elif user_openai_api_key == 'resume':
     os.environ['OPENAI_API_KEY'] = st.secrets["OPENAI_API_KEY"]
-else: 
-    try:
-        os.environ['OPENAI_API_KEY'] = user_openai_api_key
-    except: 
-        st.warning('Please provide a Valid API key')
+else:
+    os.environ['OPENAI_API_KEY'] = user_openai_api_key
 
     # create instance of OpenAI LLM
     llm = OpenAI(temperature=0.1, verbose=True)
@@ -80,7 +77,10 @@ else:
                 # Replace sys.stdout with the output buffer
                 sys.stdout = output_buffer
 
-                response = agent_executor.run(prompt)
+                try:
+                    response = agent_executor.run(prompt)
+                except: 
+                    st.warning('Please provide a Valid API key')
 
                 # capture agents thoughts and observation
                 thoughts = output_buffer.getvalue()
@@ -94,7 +94,10 @@ else:
                 # Display the agent's thoughts
                 st.code(cleaned_thoughts)
             else:
-                response = agent_executor.run(prompt)
+                try:
+                    response = agent_executor.run(prompt)
+                except: 
+                    st.warning('Please provide a Valid API key')
                 thoughts = response
                 # write the response
                 st.write('Final Response: {response}')
