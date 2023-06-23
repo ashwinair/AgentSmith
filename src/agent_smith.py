@@ -95,6 +95,7 @@ elif user_openai_api_key == 'resume':
                 cleaned_thoughts = re.sub(r'\[1m>', '', cleaned_thoughts)
                 # Display the agent's thoughts
                 st.code(cleaned_thoughts)
+                
             else:
                 try:
                     response = agent_executor.run(prompt)
@@ -102,7 +103,7 @@ elif user_openai_api_key == 'resume':
                     st.warning('Please provide a Valid API key')
                 thoughts = response
                 # write the response
-                st.write('Final Response: {response}')
+            st.write(f'Final Response: {response}')
 
             # find the revelant pages of the response
             with st.expander("Document Similarity Search"):
